@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <script type="text/javascript" src="scripts/jquery.min.js"></script>
+        <script src="scripts/bootstrap.js"></script>
+        <link rel="stylesheet" href="scripts/bootstrap.css">
+        <link href="scripts/logdeal.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="scripts/demo.css">
+        <script src="scripts/logdeal.js"></script>
+    </head>
+    <body>
+    	<div id="inputLog">
+    		<textarea id='text_log' placeholder="请将qqLog拖拽至此,或将log内容复制至此"></textarea>
+            <div id="black"></div>
+            <div id="buttonList">
+                <button class="btnOption btn btn-info" id="btn_done">分析</button>
+                <button class="btnOption btn btn-info btn-timefilter" id="timeFilterButton">时间选择器</button>
+                <button class="btnOption btn btn-info btn-setting" id="settingButton">pl设置</button>
+                <button class="btnOption btn btn-info" id="contentSetButton">信息格式</button>
+                <!-- <button class="btnOption btn btn-info" id="keeperSetButton">keeper信息格式</button> -->
+                <button class="btnOption btn btn-info btn-output" id="outputButton">输出Word文件</button>
+            </div>
+    	</div>
+        <div id="chooseList">
+            <div class="row">
+                <div class="col-sm-2">
+                    <button class="btnSwitch btn btn-warning" id="timeSwitch">时间 OFF</button>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btnSwitch btn btn-warning" id="picSwitch">[图片] OFF</button>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btnSwitch btn btn-warning" id="commandSwitch">指令 OFF</button>
+                </div>
+                <div class="col-sm-2">
+                    <button class="btnSwitch btn btn-warning" id="otherSwitch">括号内容 OFF</button>
+                </div>
+            </div>
+            <!-- <div>
+                <select id="change">
+                    <option value="1" data-test1="s" selected="selected">1</option>
+                    <option value="2" data-test1="p">2</option>
+                </select>
+                <label for="test1">name:</label>
+                <input type="text" name="test1" id="test1" value=""/>
+            </div> -->
+        </div>
+    	<div id="leftSetting">
+    	</div>
+    	<div id="rightSetting">
+    	</div>
+    	<div id="outputLog">
+    	</div>
+        <script id="plSetting" type="html/template">
+            <div class="col-sm-2">
+                <input type="text" id="plname_&id" class="input_PlName" name="&id" value="&name" placeholder="name"></input>
+            </div>
+            <div class="col-sm-2">
+                &select
+            </div>
+            <div class="col-sm-1">
+                &validset
+            </div>
+            <div class="col-sm-1"></div>
+        </script>
+
+        <!--PL设置模态框-->
+        <div class="modal fade" id="settingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="settingModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">PL设置
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="colorselect">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="fixPlColorAndDisplay()">
+                            确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--时间筛选模态框-->
+        <div class="modal fade" id="timeFilterModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="timeFilterModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">时间区段选择
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <input type="text" class="inputSee" value="日期:" readonly="readonly"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="date" id="startDate" class="inputTime" value="00:00:00"></input>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <input type="text" class="inputSee" value="开始时间:" readonly="readonly"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="time" id="startTime" class="inputTime" value="00:00:00"></input>
+                            </div>
+                            <div class="col-sm-1"> </div>
+                            <div class="col-sm-2">
+                                <input type="text" class="inputSee" value="结束时间:" readonly="readonly"/>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="time" id="endTime" class="inputTime" value="00:00:00"></input>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="button" id="timeFilterModalButton" class="btn btn-primary">
+                            确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--keep信息内容自定义-->
+        <!-- <div class="modal fade" id="keeperModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="keeperModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Keeper内容格式化
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <p style="border:0px;height:15px;">请选择kp：</p>
+                        </div>
+                        <div id="plSet">
+                        </div>
+                        <textarea id="keepTemplate" placeholder="请用&kp代替kp名,用&content代替内容要放的位置"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            关闭
+                        </button>
+                        <button type="button" id="keeperSetButton" onclick="keeperSet();" class="btn btn-primary">
+                            确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!--信息内容自定义-->
+        <div class="modal fade" id="contentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" id="contentModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">内容格式化
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <textarea id="contentTemplate" placeholder="请用&pl代替pl名,用&content代替内容要放的位置,PS:如果有纯英文名的pl名字请修改或者不要用<>括起来"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            关闭
+                        </button>
+                        <button type="button" id="keeperSetButton" onclick="contentSet();" class="btn btn-primary">
+                            确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,125 @@
+body{  
+        padding-right: 0px !important;   
+    }  
+    *.modal-open {  
+    overflow-y: scroll;  
+    padding-right: 0 !important;  
+}  
+/*基础架构*/
+div#inputLog{
+	width: 100%;
+	height: 500px;
+
+    -moz-box-align:center;
+    -webkit-box-align:center;
+    -moz-box-pack:center;
+    -webkit-box-pack:center;
+    resize:both;
+    overflow:auto;
+}
+div#leftSetting{
+	float: left;
+	width: 30%;
+	height:400px;
+	
+}
+div#rightSetting{
+	float:right;
+	width:70%;
+	height: 400px;
+	
+}
+div#outputLog{
+	position: absolute;
+    top:660px;
+    height: 1px;
+}
+
+div#inputLog>#text_log{
+    float: left;
+	width: 79%;
+    height: 95%;
+}
+div#inputLog>div#buttonList{
+    position:relative; 
+    left:-10px;
+    float:right;
+    width:19%;
+    height: 45%;
+}
+div#inputLog>#black{
+    float:right;
+    width:19%;
+    height: 40%;
+}
+div#chooseList{
+
+    width:100%;
+    height: 80px;
+}
+div#buttonList>.btnOption{
+    margin: 5px 0px 0px 0px;
+    bottom: 0;
+    width:100%;
+    height: 50px;
+}
+.input_PlName{
+    background:transparent;
+    border:0px;
+    height:34px;
+}
+.input_PlColor{
+    width:100%;
+    text-align:left;
+}
+
+
+/*模态框设置*/
+#settingModal{
+    width: 800px;
+    margin: 30px auto;
+}
+#timeFilterModal{
+    width: 600px;
+    margin: 30px auto;
+}
+
+/*#keeperModal{
+    width: 600px;
+    margin:30px auto;
+}
+*/
+#contentModal{
+    width: 600px;
+    margin:30px auto;
+}
+
+/*忘了是啥控件了*/
+.inputSee{
+    background:transparent;
+    border:0px;
+    height:34px;
+}
+
+.inputTime{
+    height:34px;
+}
+
+
+/*模态框内部控件设置*/
+div#chooseList>div>div>.btnSwitch{
+    margin: 20px 0px;
+    bottom: 0;
+    width:120%;
+    height: 50px;
+}
+
+/*div#keeperModal>div>div>#keepTemplate{
+    width: 570px;
+    height: 170px;
+}
+*/
+div#contentModal>div>div>#contentTemplate{
+    width: 570px;
+    height: 170px;
+}
